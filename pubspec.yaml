@@ -1,0 +1,72 @@
+name: mfee
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^1.1.0
+  shared_preferences: ^0.5.7+3
+  validators: ^2.0.0+1
+  cloud_firestore: ^0.13.7
+  connectivity: ^0.4.8+6
+  url_launcher: ^5.4.10
+  firebase_core: ^0.4.5
+  rxdart: ^0.24.1
+  introduction_screen: ^1.0.8
+  intl: ^0.16.1
+  fluttertoast: ^4.0.1
+  email_validator: ^1.0.4
+  flutter_share_me: ^0.9.1
+  flutter_spinkit: ^4.1.2+1
+  firebase_messaging: ^6.0.16
+  flutter_awesome_alert_box: ^1.0.1
+  imei_plugin: ^1.1.6
+  location: ^3.0.2
+  upi_pay: ^0.2.1
+
+  cupertino_icons: ^0.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.7.5
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/jan.png
+    - images/feb.png
+    - images/mar.png
+    - images/apr.png
+    - images/may.png
+    - images/jun.png
+    - images/jul.png
+    - images/aug.png
+    - images/sep.png
+    - images/oct.png
+    - images/nov.png
+    - images/dec.png
+    - images/male.png
+    - images/female.png
+    - images/appIcon.png
+    - images/bg.png
+    - images/splash.gif
+    - images/clgicon.png
+    - images/drawerImg.gif
+    - images/clg.jpeg
+    - images/amazon.png
+    - images/airtel.png
+    - images/gpay.png
+    - images/paytm.png
+    - images/phonepe.png
+    - images/bhim.png
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: 'images/appIcon.png'
+  image_path_android: 'images/appIcon.png'
