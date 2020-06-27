@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:device_id/device_id.dart';
 
 import '../shared.dart';
 import '../signup/stuAddDet.dart';
@@ -27,18 +28,48 @@ class _SignUPState extends State<SignUP> {
 
   final _genderFocusNode = FocusNode();
   TextEditingController Tname = TextEditingController();
-  DateTime selectedDate = DateTime.parse("2000-01-01 20:18:04Z");
+  DateTime selectedDate = DateTime.now();
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: DateTime.now(),
         firstDate: DateTime(1990, 8),
         lastDate: DateTime(2100));
-    if (picked != null && picked != selectedDate)
+    if (picked != null)
       setState(() {
         selectedDate = picked;
       });
+  }
+
+  String _deviceid = 'Unknown';
+
+  @override
+  void initState() {
+    super.initState();
+    initDeviceId();
+  }
+
+  Future<void> initDeviceId() async {
+    String deviceid;
+    String imei;
+    String meid;
+
+    deviceid = await DeviceId.getID;
+    try {
+      imei = await DeviceId.getIMEI;
+      meid = await DeviceId.getMEID;
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _deviceid =
+          'Your deviceid: $deviceid\nYour IMEI: $imei\nYour MEID: $meid';
+      print(_deviceid);
+    });
   }
 
   @override
@@ -256,9 +287,12 @@ class _SignUPState extends State<SignUP> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: size.width / 400,
-                ),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      errMsgDOB,
+                      style: TextStyle(color: Colors.red, fontSize: 13.5),
+                    )),
                 SizedBox(
                   height: size.width / 40,
                 ),
@@ -290,11 +324,20 @@ class _SignUPState extends State<SignUP> {
                           errMsgDOB = '';
                           errMsgGender = '';
                           errMsgBlood = '';
+
                           var i = 0;
                           final validCharacters = RegExp(r'^[a-zA-Z \.]+$');
                           if (Tname.text.isEmpty ||
                               !validCharacters.hasMatch(Tname.text)) {
                             _validateN = true;
+                            i = 1;
+                          }
+                          var check1 = "${DateTime.now().toLocal()}"
+                              .split(' ')[0]
+                              .toString();
+                          if (dob == check1) {
+                            _validateD = true;
+                            errMsgDOB = 'Must select your Date of Birth';
                             i = 1;
                           }
                           if (currentSelectvalueGender == null) {

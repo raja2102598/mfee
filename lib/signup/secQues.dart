@@ -205,6 +205,25 @@ class _SecQuesState extends State<SecQues> {
       'pass': studentMobno,
       'user': rollno,
     });
+
+    await Firestore.instance
+        .collection('$batch/$branch/PaymentDetails')
+        .document(rollno)
+        .collection('PendingDues')
+        .document('SEP')
+        .setData({
+      'month': 'SEP',
+      'year': '2019',
+      'amount': '2100',
+      'numDSH': '24',
+      'amPDay': '53',
+      'billDate': '15-09-2019',
+      'dueDate': '24-10-2019',
+      'sName': studentName,
+      'rollNum': rollno,
+      'batch': batch,
+      'branch': branch,
+    });
     await Firestore.instance
         .collection('$batch/$branch/PaymentDetails')
         .document(rollno)
@@ -212,12 +231,12 @@ class _SecQuesState extends State<SecQues> {
         .document('OCT')
         .setData({
       'month': 'OCT',
-      'year': '2017',
+      'year': '2019',
       'amount': '2100',
       'numDSH': '24',
       'amPDay': '53',
-      'billDate': '15-10-2017',
-      'dueDate': '24-11-2017',
+      'billDate': '15-10-2019',
+      'dueDate': '24-11-2019',
       'sName': studentName,
       'rollNum': rollno,
       'batch': batch,
@@ -230,12 +249,12 @@ class _SecQuesState extends State<SecQues> {
         .document('NOV')
         .setData({
       'month': 'NOV',
-      'year': '2017',
+      'year': '2019',
       'amount': '2050',
       'numDSH': '20',
       'amPDay': '60',
-      'billDate': '10-11-2017',
-      'dueDate': '20-12-2017',
+      'billDate': '10-11-2019',
+      'dueDate': '20-12-2019',
       'sName': studentName,
       'rollNum': rollno,
       'batch': batch,
@@ -248,12 +267,12 @@ class _SecQuesState extends State<SecQues> {
         .document('DEC')
         .setData({
       'month': 'DEC',
-      'year': '2017',
+      'year': '2019',
       'amount': '2150',
       'numDSH': '28',
       'amPDay': '68',
-      'billDate': '06-12-2017',
-      'dueDate': '22-01-2018',
+      'billDate': '06-12-2019',
+      'dueDate': '22-01-2020',
       'sName': studentName,
       'rollNum': rollno,
       'batch': batch,

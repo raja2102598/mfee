@@ -160,7 +160,7 @@ class _SignUPAddState extends State<SignUPAdd> {
                   TextInputType.multiline,
                   Icon(Icons.home, size: 28, color: Colors.white),
                   Taddress,
-                  TextInputAction.newline,
+                  TextInputAction.done,
                   _addFn,
                   null,
                 ),
@@ -204,7 +204,9 @@ class _SignUPAddState extends State<SignUPAdd> {
                             if (i == 0) {
                               signupPrefs.setString('sMail', Tmail.text);
                               signupPrefs.setString('sMobNum', Tmobno.text);
-                              signupPrefs.setString('sAddress', Taddress.text);
+                              signupPrefs.setString(
+                                  'sAddress', Taddress.text.trim());
+
                               Navigator.of(context, rootNavigator: true).push(
                                   CupertinoPageRoute<bool>(
                                       fullscreenDialog: false,
