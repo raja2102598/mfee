@@ -95,7 +95,7 @@ class _HistoryState extends State<History> {
                           ),
                           SizedBox(height: wt / 120),
                           Text(
-                            "\u20B9 2500",
+                            "\u20B9 ${document['amount']}",
                             style: titleTextStyle.copyWith(
                                 fontSize: wt / 23, fontWeight: FontWeight.bold),
                           ),

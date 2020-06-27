@@ -89,7 +89,7 @@ class _PaymentsState extends State<Payments> {
 
     Firestore.instance
         .document(
-            '$gbbatch/$gbbranch/PaymentDetails/${gbrollNum.toUpperCase()}/PaymentHistory/JUN')
+            '$gbbatch/$gbbranch/PaymentDetails/${gbrollNum.toUpperCase()}/PaymentHistory/$month')
         .setData({
       'paidDate': DateFormat("dd-MM-yyyy").format(now),
       'txnId': txnId,
@@ -155,6 +155,13 @@ class _PaymentsState extends State<Payments> {
           title: 'Transaction cancelled');
     } else if (a.status == UpiTransactionStatus.failure) {
       txnStore();
+      if (a.status == UpiTransactionStatus.failure) {
+        Firestore.instance
+            .document(
+                '$gbbatch/$gbbranch/PaymentDetails/${gbrollNum.toUpperCase()}/PendingDues/$month')
+            .delete();
+      }
+
       DangerAlertBox(
           context: context,
           messageText: 'Payment was failure due to some issues',
@@ -162,6 +169,12 @@ class _PaymentsState extends State<Payments> {
           title: 'Payment Failure');
     } else if (a.status == UpiTransactionStatus.submitted) {
       txnStore();
+      if (a.status == UpiTransactionStatus.submitted) {
+        Firestore.instance
+            .document(
+                '$gbbatch/$gbbranch/PaymentDetails/${gbrollNum.toUpperCase()}/PendingDues/$month')
+            .delete();
+      }
       InfoAlertBox(
           context: context,
           infoMessage: 'Payment was submitted',
@@ -193,10 +206,12 @@ class _PaymentsState extends State<Payments> {
       platformImei =
           await ImeiPlugin.getImei(shouldShowRequestPermissionRationale: false);
       idunique = await ImeiPlugin.getId();
+      print(platformImei);
     } catch (PlatformException) {
       platformImei = 'Failed to get platform version.';
     }
     if (!mounted) return;
+    
     setState(() {
       _platformImei = platformImei;
       uniqueId = idunique;
